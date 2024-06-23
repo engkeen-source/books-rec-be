@@ -11,8 +11,9 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", 
-                   "https://bookrecommend.app"
+                   "https://bookrecommend.app",
                    "https://www.bookrecommend.app"
+                   "www.bookrecommend.app"
                    ],
     allow_origin_regex="http://192.168.1.*",  # Allow all 192.168.1.* IPs
     allow_credentials=True,
