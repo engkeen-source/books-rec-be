@@ -10,7 +10,10 @@ app = FastAPI()
 # CORS settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://bookrecommend.app"],  # Added your domain
+    allow_origins=["http://localhost:3000", 
+                   "https://bookrecommend.app"
+                   "https://www.bookrecommend.app"
+                   ],
     allow_origin_regex="http://192.168.1.*",  # Allow all 192.168.1.* IPs
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
