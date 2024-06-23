@@ -38,6 +38,12 @@ This is the backend for the Book Recommendation System, built with FastAPI.
     uvicorn app.main:app --host 0.0.0.0 --port 80
     ```
 
+3. Run in Linux:
+    ```sh
+    chmod +x run.sh
+    ./run.sh
+    ```
+
 ## Testing
 
 Run the tests using pytest:

@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 
 # Mac OS
-app/.DS_Store
+*.DS_Store
