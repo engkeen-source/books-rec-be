@@ -1,8 +1,11 @@
 import json
 from openai import OpenAI
 from typing import List
-from app.schemas.book import BookRecommendationRequest, BookRecommendationResponse
 
+from pydantic import ValidationError
+from app.schemas.book import BookCoverRequest, BookRecommendationRequest, BookRecommendationResponse
+
+from app.services.book_cover import get_book_cover
 
 def recommend_books(
     request: BookRecommendationRequest,
@@ -48,5 +51,23 @@ def recommend_books(
         books_recommendations = books_recommendations.get("books", [])
     except json.JSONDecodeError:
         raise ValueError("Failed to parse response from OpenAI")
+    
+    # Validate and process each book recommendation
+    valid_books = []
+    for book in books_recommendations:
+        try:
+            valid_book = BookRecommendationResponse(**book)
+            valid_books.append(valid_book)
+        except ValidationError as e:
+            print(f"Skipping invalid book: {e}")
 
-    return [BookRecommendationResponse(**book) for book in books_recommendations]
+    # Get book cover for each valid book
+    book_responses = []
+    for book in valid_books:
+        cover_request = BookCoverRequest(title=book.title, author=book.author)
+        cover_response = get_book_cover(cover_request)
+        cover_url = cover_response.cover_url if cover_response else None
+        book_response = book.copy(update={"cover_image_url": cover_url})
+        book_responses.append(book_response)
+
+    return book_responses
