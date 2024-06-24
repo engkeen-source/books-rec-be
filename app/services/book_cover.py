@@ -31,6 +31,7 @@ def get_book_cover(request: BookCoverRequest) -> Optional[BookCoverResponse]:
     image_links = book_info.get('imageLinks', {})
 
     cover_url = image_links.get('thumbnail')
+    
     if cover_url:
         return BookCoverResponse(cover_url=cover_url)
     return None
