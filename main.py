@@ -13,8 +13,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://bookrecommend.app",
-        "https://www.bookrecommend.app", 
-        "www.bookrecommend.app"
+        "https://www.bookrecommend.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
