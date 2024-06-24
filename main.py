@@ -1,15 +1,26 @@
 from fastapi import FastAPI
 
-from app.middleware import setup_middleware  # Import the middleware setup function
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import book_recommendations
 from app.config import settings
 
-app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)  # turn off swagger docs
+app = FastAPI() 
 
-setup_middleware(app)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "https://bookrecommend.app",
+        "https://www.bookrecommend.app", 
+        "www.bookrecommend.app"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 app.include_router(book_recommendations.router, prefix="/books", tags=["books"])
-
 
 @app.get("/")
 def read_root():
@@ -18,5 +29,4 @@ def read_root():
 
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("main:app")
