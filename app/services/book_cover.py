@@ -2,10 +2,10 @@ import os
 import requests
 from typing import Optional
 
-from app.schemas.book import BookCoverRequest, BookCoverResponse
+from app.models.book_cover import BookCoverRequest, BookCoverResponse
 
 
-def get_book_cover(request: BookCoverRequest) -> Optional[BookCoverResponse]:
+def get_book_cover_from_google(request: BookCoverRequest) -> Optional[BookCoverResponse]:
 
     GOOGLE_BOOKS_API_URL = 'https://www.googleapis.com/books/v1/volumes'
     GOOGLE_BOOKS_API_KEY = os.getenv('GOOGLE_BOOKS_API_KEY')
@@ -39,5 +39,5 @@ def get_book_cover(request: BookCoverRequest) -> Optional[BookCoverResponse]:
 # Example usage
 if __name__ == "__main__":
     cover_request = BookCoverRequest(title="To Kill a Mockingbird", author="Harper Lee")
-    cover_url = get_book_cover(cover_request)
+    cover_url = get_book_cover_from_google(cover_request)
     print(cover_url)

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.endpoints import book_recommendations
+from app.api.endpoints import book_recommendation, book_cover
 from app.config import settings
 
 app = FastAPI() 
@@ -20,7 +20,8 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-app.include_router(book_recommendations.router, prefix="/books", tags=["books"])
+app.include_router(book_recommendation.router, tags=["books"])
+app.include_router(book_cover.router, tags=["books"])
 
 @app.get("/")
 def read_root():
