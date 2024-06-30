@@ -20,8 +20,8 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-app.include_router(book_recommendation.router, tags=["books"])
-app.include_router(book_cover.router, tags=["books"])
+app.include_router(book_recommendation.router, prefix="/books", tags=["books"])
+app.include_router(book_cover.router, prefix="/books", tags=["books"])
 
 @app.get("/")
 def read_root():
